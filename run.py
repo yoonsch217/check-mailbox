@@ -32,6 +32,7 @@ def main():
 if __name__ == "__main__":
     logger = logging.getLogger('Run')
     try:
+        logger.debug("Starting main()")
         main()
         update_health_record(conf.health_record_file)
 

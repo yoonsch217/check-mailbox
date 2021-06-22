@@ -56,6 +56,7 @@ class Worker:
 
         try:
             self.smtp.send_message(alert)
+            self.logger.debug("Email sent")
         except Exception as e:
             self.logger.info("send_message exception. %s." % str(e))
             handle_error_update_checkpoint(uid=uid, e=e, logger=self.logger)

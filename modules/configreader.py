@@ -10,13 +10,9 @@ from optparse import OptionParser
 import socket
 
 
-cur_time = datetime.datetime.now()
-base_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-configlogger = logging.getLogger('configreader')
-
-
 class ConfigReader:
     def __init__(self, configfiles):
+        base_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         self.logger = logging.getLogger('ConfigReader')
         self.config = configparser.RawConfigParser()
         self.config.read(configfiles, encoding='utf-8')
@@ -44,10 +40,10 @@ class ConfigReader:
         # check github API document
         self.github_issue_url = self.config.get('url', 'github_api_url') + '/issues'
         self.github_header = {'Authorization': 'token ' + self.config.get('url', 'github_token')}
-        self.master_keywords_file = base_dir + '/files/' + self.config.get('file', 'master_keywords_file')
+        self.target_keywords_file = base_dir + '/files/' + self.config.get('file', 'target_keywords_file')
 
-        self.receivers = [self.config.get('file', 'receiver_addresss')]
-        self.sender = self.config.get('file', 'sender_address')
+        self.receivers = [self.config.get('common', 'receiver_addresss')]
+        self.sender = self.config.get('common', 'sender_address')
 
         # Setup directories
         if not os.path.exists(os.path.dirname(self.logfile)):
@@ -58,16 +54,15 @@ class ConfigReader:
             os.mkdir(os.path.dirname(self.health_record_file))
 
 
+base_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 parser = OptionParser()
 parser.add_option('-c', '--config',
                   default=base_dir + '/config/config.ini',
                   help='Path to config file (default: %default)',
                   metavar='FILE')
-
 (options, args) = parser.parse_args()
 config = configparser.RawConfigParser()
 config.read(options.config, encoding='utf-8')
-
 
 # logging
 local_time = time.localtime(time.time())

@@ -2,3 +2,5 @@ config.ini
 logs
 health-records
 .idea
+venv
+checkpoint.txt
