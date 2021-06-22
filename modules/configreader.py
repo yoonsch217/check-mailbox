@@ -41,7 +41,9 @@ class ConfigReader:
         self.checkpoint_file = base_dir + '/' + self.config.get('file', 'checkpoint_file')
         self.health_record_file = base_dir + '/health-records/' + server_date_affix + '-' + self.config.get('file', 'health_record_file')
 
+        # check github API document
         self.github_issue_url = self.config.get('url', 'github_api_url') + '/issues'
+        self.github_header = {'Authorization': 'token ' + self.config.get('url', 'github_token')}
         self.master_keywords_file = base_dir + '/files/' + self.config.get('file', 'master_keywords_file')
 
         self.receivers = [self.config.get('file', 'receiver_addresss')]

@@ -17,7 +17,9 @@ health_record_file: health-record.txt
 
 
 [url]
+# check for github api document
 github_api_url:
+github_token:
 
 
 [common]
